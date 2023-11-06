@@ -1,3 +1,4 @@
+import Notiflix from 'notiflix';
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 
 const breedSelect = document.querySelector('.breed-select');
@@ -11,7 +12,9 @@ const hideError = () => {
 };
 
 const showError = () => {
-    error.style.display = 'block';
+    // error.style.display = 'block';
+    // error.style.color = 'red';
+    Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
 };
 fetchBreeds()
     .then(breeds => {
@@ -51,6 +54,7 @@ breedSelect.addEventListener('change', e => {
             console.error('Error fetching cat info:', err);
         });
 });
+
 
 function breedTemplate(cat) {
     const image = cat.url;
