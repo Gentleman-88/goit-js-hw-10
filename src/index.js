@@ -42,9 +42,12 @@ breedSelect.addEventListener('change', e => {
 
     catInfo.style.display = 'none';
 
+    breedSelect.style.display = 'none';
+
     const q = e.target.value;
     fetchCatByBreed(q)
         .then(cat => {
+            breedSelect.style.display = 'block';
             renderBreed(cat);
             hideError();
         })
