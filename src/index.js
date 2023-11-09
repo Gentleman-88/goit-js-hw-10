@@ -42,7 +42,6 @@ breedSelect.addEventListener('change', e => {
 
     catInfo.style.display = 'none';
 
-    breedSelect.style.display = 'none';
 
     const q = e.target.value;
     fetchCatByBreed(q)
