@@ -7,6 +7,7 @@ const error = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
 
 loader.style.display = 'block';
+breedSelect.style.display = 'none';
 const hideError = () => {
     error.style.display = 'none';
 };
@@ -24,6 +25,7 @@ fetchBreeds()
         });
 
         loader.style.display = 'none';
+
         breedSelect.style.display = 'block';
         hideError();
     })
@@ -36,24 +38,27 @@ fetchBreeds()
 
 breedSelect.addEventListener('change', e => {
     loader.style.display = 'block';
+
     catInfo.style.display = 'none';
-    breedSelect.style.display = 'none';
 
     const q = e.target.value;
     fetchCatByBreed(q)
         .then(cat => {
-            breedSelect.style.display = 'block';
             renderBreed(cat);
             hideError();
         })
         .catch(err => {
-            breedSelect.style.display = 'none';
             loader.style.display = 'none';
             showError();
             console.error('Error fetching cat info:', err);
         });
 });
 
+window.addEventListener('load', function () {
+    setTimeout(function () {
+        breedSelect.classList.remove('is-hidden');
+    }, 2000);
+});
 
 function breedTemplate(cat) {
     const image = cat.url;
@@ -65,11 +70,12 @@ function breedTemplate(cat) {
         <p class="temperament"><span class="temp-span">Temperament:</span> ${cat.temperament}</p>
     </div>
     `;
-}
+};
 
 function renderBreed(cat) {
     const markup = breedTemplate(cat);
     catInfo.innerHTML = markup;
+
     loader.style.display = 'none';
     catInfo.style.display = 'flex';
 }
