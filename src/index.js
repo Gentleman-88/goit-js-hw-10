@@ -12,8 +12,6 @@ const hideError = () => {
 };
 
 const showError = () => {
-    // error.style.display = 'block';
-    // error.style.color = 'red';
     Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
 };
 fetchBreeds()
@@ -26,7 +24,6 @@ fetchBreeds()
         });
 
         loader.style.display = 'none';
-
         breedSelect.style.display = 'block';
         hideError();
     })
@@ -39,8 +36,8 @@ fetchBreeds()
 
 breedSelect.addEventListener('change', e => {
     loader.style.display = 'block';
-
     catInfo.style.display = 'none';
+    breedSelect.style.display = 'none';
 
     const q = e.target.value;
     fetchCatByBreed(q)
@@ -50,6 +47,7 @@ breedSelect.addEventListener('change', e => {
             hideError();
         })
         .catch(err => {
+            breedSelect.style.display = 'none';
             loader.style.display = 'none';
             showError();
             console.error('Error fetching cat info:', err);
